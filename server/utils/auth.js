@@ -24,11 +24,9 @@ export const isAuth = (context) => {
         errors.general = 'Correct header must be provided';
     }
 
-    return{
-        auth,
-        errors,
-        valid: Object.keys(errors) < 1,
-        authValid: Object.keys(auth) < 1
+    if(Object.keys(errors).length){
+        throw new Error(errors.general);
     }
+    return auth.data;
 }
 
