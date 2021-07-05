@@ -8,17 +8,19 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
     "server": "nodemon server.js",
-    "gqlserver":"nodemon index.js"
+    "gqlserver": "nodemon index.js"
   },
   "author": "David",
   "license": "MIT",
   "dependencies": {
     "apollo-server": "^2.25.2",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-graphql": "^0.12.0",
     "graphql": "^15.5.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.2"
   },
   "devDependencies": {
