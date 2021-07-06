@@ -1,0 +1,6 @@
+
+const CONSTANTS = {
+    FETCH_POSTS_QUERY:'FETCH_POSTS_QUERY',
+}
+
+export default CONSTANTS;
