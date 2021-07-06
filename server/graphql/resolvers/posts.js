@@ -1,5 +1,6 @@
 
 import { AuthenticationError } from 'apollo-server-errors';
+import { PubSub } from 'graphql-subscriptions';
 import Post from '../../models/Post.js';
 import { isAuth } from '../../utils/auth.js';
 
@@ -40,6 +41,11 @@ const posts = {
                     createdAt: new Date().toISOString()
                 })
                 const post = await newPost.save();
+
+
+                context.pubsub.publish('NEW_POST',{
+                    newPost: post
+                });
                 return post
             } catch (error) {
                 throw new Error(error.message)
@@ -59,6 +65,17 @@ const posts = {
                 }
             } catch (error) {
                 throw new Error(error.message)
+            }
+        }
+    },
+    Subscription:{
+        newPost:{
+            subscribe(_,__,{pubsub}){
+                try {
+                    return pubsub.asyncIterator('NEW_POST');
+                } catch (error) {
+                    throw new Error(error.message)                    
+                }
             }
         }
     }
