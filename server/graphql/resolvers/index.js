@@ -4,6 +4,14 @@ import commentResolvers from './comments.js';
 import likeResolvers from './likes.js';
 
 const resolvers = {
+    Post:{
+        likeCount: (parent) => {
+            return parent.likes.length;
+        },
+        commentCount:(parent) => {
+            return parent.comments.length;
+        }
+    },
     Query:{
         ...postResolvers.Query,
     },
