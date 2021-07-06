@@ -1,6 +1,5 @@
 
 import { AuthenticationError } from 'apollo-server-errors';
-import { PubSub } from 'graphql-subscriptions';
 import Post from '../../models/Post.js';
 import { isAuth } from '../../utils/auth.js';
 
@@ -32,6 +31,11 @@ const posts = {
         async createPost(_, { body },context){
             // runs helper function to ensure user is authorized                
             const user = isAuth(context);
+
+            if(args.body.trim() === ''){
+                throw new Error('Post body must not be empty')
+            }
+
             try {
                 // creates a new post and saves it to the db
                 const newPost = new Post({

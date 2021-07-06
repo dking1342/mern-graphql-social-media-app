@@ -5,12 +5,8 @@ import likeResolvers from './likes.js';
 
 const resolvers = {
     Post:{
-        likeCount: (parent) => {
-            return parent.likes.length;
-        },
-        commentCount:(parent) => {
-            return parent.comments.length;
-        }
+        likeCount: parent => parent.likes.length,
+        commentCount: parent => parent.comments.length
     },
     Query:{
         ...postResolvers.Query,
