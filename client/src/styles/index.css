@@ -19,5 +19,10 @@ code {
 }
 
 .header-drop{
-  margin-top: 50px;
+  margin-top: 70px;
+}
+
+.form-container{
+  width: 400px;
+  margin:auto;
 }

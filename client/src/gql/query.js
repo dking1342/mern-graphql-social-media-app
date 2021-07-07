@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 import CONSTANTS from "./constants";
 
-const graphqlFunc = (type) => {
+const graphqlQueries = (type) => {
     switch (type) {
         case CONSTANTS.FETCH_POSTS_QUERY:
             return gql`
@@ -25,10 +25,11 @@ const graphqlFunc = (type) => {
                     }
                 }
             `;
+
     
         default:
             return;
     }
 }
 
-export default graphqlFunc;
+export default graphqlQueries;

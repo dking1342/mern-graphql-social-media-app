@@ -49,7 +49,7 @@ const users = {
                 const user = await User.findOne({username});
                 if(user){
                     return new UserInputError('Username is taken',{
-                        error:{
+                        errors:{
                             username:'This username is taken'
                         }
                     })
