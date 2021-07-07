@@ -7,18 +7,22 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Navbar from './components/Navbar';
+import { AuthProvider } from './context/auth';
+import PublicRoute from './components/PublicRoute';
 
 const App = () => {
   return (
     <ApolloProvider>
-      <Router>
-          <Navbar />
-          <Container className="header-drop">
-            <Route exact path='/' component={Home}/>
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/register' component={Register} />
-          </Container>
-      </Router>
+      <AuthProvider>
+        <Router>
+            <Navbar />
+            <Container className="header-drop">
+              <Route exact path='/' component={Home}/>
+              <PublicRoute exact path='/login' component={Login} />
+              <PublicRoute exact path='/register' component={Register} />
+            </Container>
+        </Router>
+      </AuthProvider>
     </ApolloProvider>
   )
 }

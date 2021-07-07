@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Form } from 'semantic-ui-react';
+import { AuthContext } from '../context/auth';
 import CONSTANTS from '../gql/constants';
 import graphqlMutations from '../gql/mutations';
 import { useForm } from '../hooks/customHooks';
@@ -8,6 +9,7 @@ import { useForm } from '../hooks/customHooks';
 
 const Login = (props) => {
     const [errors, setErrors] = useState({});
+    const { login } = useContext(AuthContext);
 
     let { onChange, onSubmit, values } = useForm(loginUser,{
         username:'',
@@ -16,6 +18,7 @@ const Login = (props) => {
 
     const [logUser,{loading}] = useMutation(graphqlMutations(CONSTANTS.LOGIN_USER),{
         update(_,result){
+            login(result.data.login);
             props.history.push('/');
         },
         onError(err){
