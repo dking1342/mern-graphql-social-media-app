@@ -25,8 +25,7 @@ const graphqlQueries = (type) => {
                     }
                 }
             `;
-
-    
+                
         default:
             return;
     }

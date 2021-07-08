@@ -32,8 +32,9 @@ const posts = {
             // runs helper function to ensure user is authorized                
             const user = isAuth(context);
 
-            if(args.body.trim() === ''){
-                throw new Error('Post body must not be empty')
+            if(body.trim() === ''){
+                console.log('body error')
+                return new Error('Post body must not be empty')
             }
 
             try {

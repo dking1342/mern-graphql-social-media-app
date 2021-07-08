@@ -15,6 +15,7 @@ const graphqlMutations = type => {
                     }
                 }
             `;
+
         case CONSTANTS.LOGIN_USER:
             return gql`
                 mutation login($username:String!,$password:String!){
@@ -27,6 +28,31 @@ const graphqlMutations = type => {
                     }
                 }
             `;
+            
+        case CONSTANTS.CREATE_POST:
+            return gql`
+                mutation createPost($body:String!){
+                    createPost(body:$body){
+                        id
+                        body
+                        createdAt
+                        username
+                        likes{
+                            id
+                            username
+                            createdAt
+                        }
+                        likeCount
+                        comments{
+                            id
+                            body
+                            username
+                            createdAt
+                        }
+                        commentCount
+                    }
+                }
+            `;            
     
         default:
             return;
