@@ -38,13 +38,7 @@ const ApolloProvider = ({children}) => {
         if (networkError) console.log(`[Network error]: ${networkError}`);
     });
 
-    let cache = new InMemoryCache({
-        typePolicies:{
-            Post:{
-                keyFields:["id"]
-            }
-        }
-    })
+    let cache = new InMemoryCache()
 
     // apollo client init
     const client = new ApolloClient({

@@ -7,39 +7,32 @@ import graphqlQueries from '../gql/query';
 import { useForm } from '../hooks/customHooks';
 
 const PostForm = () => {
-    // const [error,setError]=useState({});
     const { values, onSubmit, onChange } = useForm(createPostCallback,{
         body:''
     });
 
     let [createPost,{ error }] = useMutation(graphqlMutations(CONSTANTS.CREATE_POST),{
         update(proxy,result){
-            const data = proxy.readQuery({
-                query: graphqlQueries(CONSTANTS.FETCH_POSTS_QUERY)
+            let { createPost } = result.data;
+            let data = proxy.readQuery({
+                query:graphqlQueries(CONSTANTS.FETCH_POSTS_QUERY)
             });
-            let newData = [...data.getPosts];
-            newData = [result.data.createPost, ...newData];
+            let newPosts = [createPost, ...data.getPosts];
             proxy.writeQuery({
-                query: graphqlQueries(CONSTANTS.FETCH_POSTS_QUERY),
+                query:graphqlQueries(CONSTANTS.FETCH_POSTS_QUERY),
                 data:{
                     ...data,
-                    newData
+                    getPosts:newPosts
                 }
-            });
+            })
             values.body = '';
         },
-        variables:values
+        variables:values,
+        
     });
 
     function createPostCallback(){
         createPost();
-    }
-
-    if(Boolean(values.body.length)){
-        // setError({});
-        console.log('body',values.body)
-        console.log(error)
-        error = null;
     }
 
     return (
@@ -60,15 +53,15 @@ const PostForm = () => {
                     </Button>
                 </Form.Field>
             </Form>
-            {
+            {/* {
                 error && (
-                    <div className="ui error message">
+                    <div className="ui error message" style={{marginBottom:20}}>
                         <ul className="list">
                             <li>{error.graphQLErrors[0].message}</li>
                         </ul>
                     </div>
                 )
-            }
+            } */}
         </>
     )
 }

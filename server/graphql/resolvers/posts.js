@@ -71,7 +71,15 @@ const posts = {
             } catch (error) {
                 throw new Error(error.message)
             }
-        }
+        },
+        async deletePosts(_,{ postId },context){
+            try {
+                await Post.deleteMany();
+                return 'All posts removed';
+            } catch (error) {
+                throw new Error(error.message);
+            }
+        },
     },
     Subscription:{
         newPost:{
