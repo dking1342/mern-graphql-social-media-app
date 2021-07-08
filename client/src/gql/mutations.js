@@ -52,7 +52,21 @@ const graphqlMutations = type => {
                         commentCount
                     }
                 }
-            `;            
+            `;  
+        
+        case CONSTANTS.LIKE_POST:
+            return gql`
+                mutation likePost($postId:ID!){
+                    likePost(postId:$postId){
+                        id
+                        likes{
+                            id
+                            username
+                        }
+                        likeCount
+                    }
+                }
+            `;
     
         default:
             return;
