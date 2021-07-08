@@ -67,6 +67,29 @@ const graphqlMutations = type => {
                     }
                 }
             `;
+        
+        case CONSTANTS.CREATE_COMMENT:
+            return gql`
+                mutation createComment($postId:ID!,$body:String!){
+                    createComment(postId: $postId, body: $body) {
+                        id
+                        body
+                        comments {
+                            id
+                            createdAt
+                            username
+                            body
+                        }
+                    }
+                }
+            `;
+
+        case CONSTANTS.DELETE_POST:
+            return gql`
+                mutation deletePost($postId:ID!){
+                    deletePost(postId:$postId)
+                }
+            `;
     
         default:
             return;

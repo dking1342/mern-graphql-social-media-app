@@ -9,6 +9,7 @@ import Register from './pages/Register';
 import Navbar from './components/Navbar';
 import { AuthProvider } from './context/auth';
 import PublicRoute from './components/PublicRoute';
+import SinglePost from './pages/SinglePost';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
               <Route exact path='/' component={Home}/>
               <PublicRoute exact path='/login' component={Login} />
               <PublicRoute exact path='/register' component={Register} />
+              <Route exact path="/post/:postId" component={SinglePost} />
             </Container>
         </Router>
       </AuthProvider>

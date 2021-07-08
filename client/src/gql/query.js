@@ -25,6 +25,30 @@ const graphqlQueries = (type) => {
                     }
                 }
             `;
+        
+        case CONSTANTS.SINGLE_POST_QUERY:
+            return gql`
+                query getPost($postId:ID!){
+                    getPost(postId:$postId){
+                        id
+                        body
+                        username
+                        createdAt
+                        comments{
+                            id
+                            username
+                            body
+                            createdAt
+                        }
+                        commentCount
+                        likes{
+                            id
+                            username
+                        }
+                        likeCount
+                    }
+                }
+            `;
                 
         default:
             return;
