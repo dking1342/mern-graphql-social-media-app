@@ -7,13 +7,14 @@ import CONSTANTS from '../gql/constants';
 import graphqlMutations from '../gql/mutations';
 
 const LikeButton = ({post:{id,likes,likeCount}}) => {
-    const { user } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
     const [isLiked, setIsLiked]=useState(false);
     const [likePost]=useMutation(graphqlMutations(CONSTANTS.LIKE_POST),{
         variables:{
             postId:id
         }
-    })
+    });
+
 
     useEffect(()=>{
         if(user && likes.find(like=> like.username === user.username)){
@@ -39,14 +40,26 @@ const LikeButton = ({post:{id,likes,likeCount}}) => {
             </Button>
         )
 
-    return (
-        <Button as='div' labelPosition='right' onClick={()=> likePost()}>
-            { likeButton }
-            <Label as='a' basic color='teal' pointing='left' >
-                {likeCount}
-            </Label>
-        </Button>
-    )
+    if(user){
+        return (
+            <Button as='div' labelPosition='right' onClick={()=> likePost()}>
+                { likeButton }
+                <Label as='a' basic color='teal' pointing='left' >
+                    {likeCount}
+                </Label>
+            </Button>
+        )
+    } else {
+        return (
+            <Button as='div' labelPosition='right' onClick={logout}>
+                { likeButton }
+                <Label as='a' basic color='teal' pointing='left' >
+                    {likeCount}
+                </Label>
+            </Button>
+        )
+
+    }
 }
 
 export default LikeButton

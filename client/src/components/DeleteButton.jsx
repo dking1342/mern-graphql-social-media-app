@@ -5,27 +5,33 @@ import CONSTANTS from '../gql/constants'
 import graphqlMutations from '../gql/mutations'
 import graphqlQueries from '../gql/query'
 
-const DeleteButton = ({postId,callback}) => {
+const DeleteButton = ({postId,commentId,callback}) => {
     const [confirmOpen, setConfirmOpen]=useState(false);
-    const [removeButton] = useMutation(graphqlMutations(CONSTANTS.DELETE_POST),{
+
+    const mutation = commentId ? CONSTANTS.DELETE_COMMENT : CONSTANTS.DELETE_POST;
+
+    const [removePostOrComment] = useMutation(graphqlMutations(mutation),{
         update(proxy){
             setConfirmOpen(false);
 
-            let data = proxy.readQuery({
-                query:graphqlQueries(CONSTANTS.FETCH_POSTS_QUERY)
-            });
-            let filteredPosts = data.getPosts.filter(post => post.id !== postId);
-            proxy.writeQuery({
-                query:graphqlQueries(CONSTANTS.FETCH_POSTS_QUERY),
-                data:{
-                    ...data,
-                    getPosts:filteredPosts
-                }
-            })
+            if(!commentId){
+                let data = proxy.readQuery({
+                    query:graphqlQueries(CONSTANTS.FETCH_POSTS_QUERY)
+                });
+                let filteredPosts = data.getPosts.filter(post => post.id !== postId);
+                proxy.writeQuery({
+                    query:graphqlQueries(CONSTANTS.FETCH_POSTS_QUERY),
+                    data:{
+                        ...data,
+                        getPosts:filteredPosts
+                    }
+                })
+            }
             if(callback) callback();            
         },
         variables:{
-            postId
+            postId,
+            commentId
         },
     })
 
@@ -39,8 +45,7 @@ const DeleteButton = ({postId,callback}) => {
                 header="Delete Post"
                 open={confirmOpen}
                 onCancel={()=>setConfirmOpen(false)}
-                onConfirm={removeButton}
-
+                onConfirm={removePostOrComment}
             />
         </>
     )

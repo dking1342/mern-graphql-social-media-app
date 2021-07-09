@@ -90,6 +90,22 @@ const graphqlMutations = type => {
                     deletePost(postId:$postId)
                 }
             `;
+        
+        case CONSTANTS.DELETE_COMMENT:
+            return gql`
+                mutation deleteComment($postId:ID!,$commentId:ID!){
+                    deleteComment(postId:$postId,commentId:$commentId){
+                    id
+                    comments{
+                        id
+                        username
+                        body
+                        createdAt
+                    }
+                    commentCount
+                    }
+                }
+            `;
     
         default:
             return;
