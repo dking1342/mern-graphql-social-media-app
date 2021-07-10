@@ -27,6 +27,8 @@ const PostCard = ({post}) => {
                 />
                 <CommentButton 
                     post={{id,commentCount}}
+                    as='link'
+                    to={`/post/${id}`}
                 />
                  {
                      user && user.username === username && (

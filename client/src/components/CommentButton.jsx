@@ -1,18 +1,21 @@
 import React, {  } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Icon, Label } from 'semantic-ui-react';
+import PopupReusable from './PopupReusable';
 
-const CommentButton = ({post:{id,commentCount}}) => {
+const CommentButton = ({as, to, post:{id,commentCount}}) => {
 
     return (
-        <Button labelPosition='right' as={Link} to={`/post/${id}`} >
-            <Button color='blue' basic>
-                <Icon name='comments' />
+        <PopupReusable content='Comment on post'>
+            <Button labelPosition='right' as={as === 'link' ? Link : as} to={to} >
+                <Button color='blue' basic>
+                    <Icon name='comments' />
+                </Button>
+                <Label basic color='blue' pointing='left' >
+                    { commentCount }
+                </Label>
             </Button>
-            <Label basic color='blue' pointing='left' >
-                { commentCount }
-            </Label>
-        </Button>
+        </PopupReusable>
     )
 }
 

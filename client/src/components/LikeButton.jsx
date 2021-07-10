@@ -5,6 +5,7 @@ import { Button, Icon, Label } from 'semantic-ui-react'
 import { AuthContext } from '../context/auth';
 import CONSTANTS from '../gql/constants';
 import graphqlMutations from '../gql/mutations';
+import PopupReusable from './PopupReusable';
 
 const LikeButton = ({post:{id,likes,likeCount}}) => {
     const { user, logout } = useContext(AuthContext);
@@ -42,23 +43,26 @@ const LikeButton = ({post:{id,likes,likeCount}}) => {
 
     if(user){
         return (
-            <Button as='div' labelPosition='right' onClick={()=> likePost()}>
-                { likeButton }
-                <Label as='a' basic color='teal' pointing='left' >
-                    {likeCount}
-                </Label>
-            </Button>
+            <PopupReusable content='Like post'>
+                <Button as='div' labelPosition='right' onClick={()=> likePost()}>
+                    { likeButton }
+                    <Label as='a' basic color='teal' pointing='left' >
+                        {likeCount}
+                    </Label>
+                </Button>
+            </PopupReusable>
         )
     } else {
         return (
-            <Button as='div' labelPosition='right' onClick={logout}>
-                { likeButton }
-                <Label as='a' basic color='teal' pointing='left' >
-                    {likeCount}
-                </Label>
-            </Button>
+            <PopupReusable content='Like post'>
+                <Button as='div' labelPosition='right' onClick={logout}>
+                    { likeButton }
+                    <Label as='a' basic color='teal' pointing='left' >
+                        {likeCount}
+                    </Label>
+                </Button>
+            </PopupReusable>
         )
-
     }
 }
 

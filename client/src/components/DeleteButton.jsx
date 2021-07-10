@@ -4,6 +4,7 @@ import { Button, Icon, Confirm } from 'semantic-ui-react'
 import CONSTANTS from '../gql/constants'
 import graphqlMutations from '../gql/mutations'
 import graphqlQueries from '../gql/query'
+import PopupReusable from './PopupReusable'
 
 const DeleteButton = ({postId,commentId,callback}) => {
     const [confirmOpen, setConfirmOpen]=useState(false);
@@ -38,9 +39,11 @@ const DeleteButton = ({postId,commentId,callback}) => {
 
     return (
         <>
-            <Button as='div' color='red' floated='right' onClick={()=>setConfirmOpen(true)}>
-                <Icon name='trash' style={{margin:0}} />
-            </Button>
+            <PopupReusable content={commentId ? 'Delete comment' : 'Delete post'}>
+                <Button as='div' color='red' floated='right' onClick={()=>setConfirmOpen(true)}>
+                    <Icon name='trash' style={{margin:0}} />
+                </Button>
+            </PopupReusable>
             <Confirm
                 header="Delete Post"
                 open={confirmOpen}

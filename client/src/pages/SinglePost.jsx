@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React, { useContext, useRef, useState } from 'react'
-import { Button, Card, Form, Grid, Icon, Image, Label } from 'semantic-ui-react';
+import { Card, Form, Grid, Image } from 'semantic-ui-react';
 import CONSTANTS from '../gql/constants';
 import graphqlQueries from '../gql/query';
 import img from '../assets/elliot.jpeg';
@@ -9,6 +9,7 @@ import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
 import { AuthContext } from '../context/auth';
 import graphqlMutations from '../gql/mutations';
+import CommentButton from '../components/CommentButton';
 
 
 const SinglePost = (props) => {
@@ -67,14 +68,10 @@ const SinglePost = (props) => {
                             <hr />
                             <Card.Content extra>
                                 <LikeButton post={{id,likes,likeCount}} />
-                                <Button as="div" labelPosition="right" onClick={()=>console.log('comment')}>
-                                    <Button basic color='blue'>
-                                        <Icon name='comments' />
-                                    </Button>
-                                    <Label basic color='blue' pointing='left'>
-                                        { commentCount }
-                                    </Label>
-                                </Button>
+                                <CommentButton
+                                    post={{id,commentCount}}
+                                    as='div'
+                                />
                                 {
                                     user && user.username === username && (
                                         <DeleteButton 
