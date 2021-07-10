@@ -73,7 +73,7 @@ const graphqlMutations = type => {
                 mutation createComment($postId:ID!,$body:String!){
                     createComment(postId: $postId, body: $body) {
                         id
-                        body
+                        commentCount
                         comments {
                             id
                             createdAt
