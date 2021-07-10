@@ -124,7 +124,7 @@ const SinglePost = (props) => {
                                             {comment.username}
                                         </Card.Header>
                                         <Card.Meta>
-                                            {moment(createdAt).fromNow(true)}
+                                            {moment(comment.createdAt).fromNow(true)}
                                         </Card.Meta>
                                         <Card.Description>
                                             {comment.body}
