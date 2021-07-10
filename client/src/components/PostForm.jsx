@@ -37,7 +37,7 @@ const PostForm = () => {
 
     return (
         <>
-            <Form onSubmit={onSubmit}>
+            <Form onSubmit={onSubmit} style={{width:'100%',padding:'0 1rem'}}>
                 <h2>Create a post: </h2>
                 <Form.Field>
                     <Form.Input 
@@ -48,12 +48,12 @@ const PostForm = () => {
                         value={values.body}
                         error={error ? true : false}
                     />
-                    <Button type='submit' color='teal'>
+                    <Button type='submit' color='teal' disabled={values.body.trim() === ''} >
                         Submit
                     </Button>
                 </Form.Field>
             </Form>
-            {/* {
+            {
                 error && (
                     <div className="ui error message" style={{marginBottom:20}}>
                         <ul className="list">
@@ -61,7 +61,7 @@ const PostForm = () => {
                         </ul>
                     </div>
                 )
-            } */}
+            }
         </>
     )
 }

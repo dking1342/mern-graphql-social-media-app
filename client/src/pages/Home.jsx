@@ -17,31 +17,33 @@ const Home = () => {
             <Grid.Row centered>
                 <h1 style={{marginBottom:'1rem'}}>Recent Posts</h1>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row columns='1' >
                 { user && (
-                    <Grid.Column>
+                    // <Grid.Column>
                         <PostForm />
-                    </Grid.Column>
+                    // </Grid.Column>
                     )
                 }
+            </Grid.Row>
                 {
                     loading ? (
                         <h1>loading...</h1>
                     ) : error ? (
                         <h1>Error when loading the posts</h1>
                     ) : (
-                        <Transition.Group>
-                            {
-                                data && data.getPosts.map(post => (
-                                    <Grid.Column key={post.id} style={{marginBottom:'20px'}} >
-                                        <PostCard post={post} />
-                                    </Grid.Column>
-                                ))
-                            }
-                        </Transition.Group>
+                        <Grid.Row>
+                            <Transition.Group>
+                                {
+                                    data && data.getPosts.map(post => (
+                                        <Grid.Column key={post.id} style={{marginBottom:'20px'}} >
+                                            <PostCard post={post} />
+                                        </Grid.Column>
+                                    ))
+                                }
+                            </Transition.Group>
+                        </Grid.Row>
                     )
                 }
-            </Grid.Row>
         </Grid>
     )
 }
